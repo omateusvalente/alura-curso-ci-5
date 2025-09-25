@@ -64,5 +64,12 @@ jobs:
 
   Deploy_ECS:
     needs: docker
+    if: ${{ github.ref_name == 'homolog' }}
     uses: ./.github/workflows/ECS.yml
     secrets: inherit
+
+  LoadTest:
+    needs: docker
+    uses: ./.github/workflows/LoadTest.yml
+    secrets: inherit
+    
