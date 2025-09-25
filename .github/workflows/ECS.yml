@@ -17,8 +17,11 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: us-east-2 
     
-    - name: "Obtendo arquivo da tarefa"
-      run: aws ecs describe-task-definition --task-defition Tarefa_API-GO --query --task-definition > taskdefition.json
+    - name: Obtendo arquivo da tarefa
+      run: aws ecs describe-task-definition --task-definition Tarefa_API-GO --query --task-definition > taskdefinition.json
+
+    - name: Realizando cópia do arquivo task-definition
+      run: cp taskdefinition.json taskdefinition.json.old
     
     - name: Fill in the new image ID in the Amazon ECS task definition
       id: task-def
