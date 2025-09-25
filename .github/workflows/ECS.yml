@@ -48,9 +48,10 @@ jobs:
 
     - name: Requisição
       continue-on-error: true
-      run: sleep 30s ; wget dns:8000/mateus 
+      run: echo "REQUEST=0" >> $GITHUB_ENV ; sleep 30s ; wget dns:8000/mateus || echo "REQUEST=1" >> $GITHUB_ENV 
 
     - name: Deploy Amazon ECS task definition
+      if: ${{ env.REQUEST != 0 }}
       uses: aws-actions/amazon-ecs-deploy-task-definition@v1
       with:
         task-definition: taskdefinition.json.old
