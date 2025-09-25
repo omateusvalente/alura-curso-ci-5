@@ -45,4 +45,15 @@ jobs:
         service: Servico_API-Go
         cluster: API-Go
         wait-for-service-stability: true
-        
+
+    - name: Requisição
+      continue-on-error: true
+      run: sleep 30s ; wget dns:8000/mateus 
+
+    - name: Deploy Amazon ECS task definition
+      uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+      with:
+        task-definition: taskdefinition.json.old
+        service: Servico_API-Go
+        cluster: API-Go
+        wait-for-service-stability: true
